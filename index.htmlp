@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guilt or Pride</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: red;
+            text-align: center;
+            font-family: 'Great Vibes', cursive;
+            overflow: hidden;
+        }
+        .container {
+            color: white;
+            font-size: 24px;
+        }
+        .quote {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .button {
+            padding: 15px 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 20px;
+            transition: transform 0.2s ease, font-size 0.3s ease;
+        }
+        .button:hover {
+            transform: scale(1.1);
+        }
+        .white-button {
+            background-color: white;
+            color: black;
+        }
+        .black-button {
+            background-color: black;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: pink;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 50% 75%, 18% 100%, 0% 38%);
+            opacity: 0;
+            animation: float 3s linear infinite;
+        }
+        @keyframes float {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-150px) scale(1.5); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="quote" class="quote">U nonchalant biatch</div>
+    <div id="options" class="options">
+        <button class="button white-button" onclick="forgive()">I am guilty</button>
+        <button class="button black-button" onclick="pride()">I am proud of my deed</button>
+    </div>
+</div>
+
+<script>
+    function forgive() {
+        document.body.style.backgroundColor = "skyblue";
+        document.querySelector(".container").innerHTML = '<div class="hearts"></div><div class="quote" style="color: purple;">Ur forgiven 🌬️ & behave u rude man</div>';
+        createHearts();
+    }
+
+    function pride() {
+        document.getElementById("options").innerHTML = `
+            <button class="button white-button" id="apologise" onclick="forgive()">I apologise</button>
+            <button class="button black-button" id="serious" onclick="areYouSerious()">Are u serious</button>
+        `;
+    }
+
+    let guiltSize = 20;
+    let apologiseSize = 18;
+
+    function areYouSerious() {
+        let seriousBtn = document.getElementById("serious");
+        let apologiseBtn = document.getElementById("apologise");
+
+        if (seriousBtn.innerText === "Are u serious") {
+            seriousBtn.innerText = "u sure?! No snaps for u😤";
+        } else if (seriousBtn.innerText === "u sure?! No snaps for u😤") {
+            seriousBtn.innerText = "u should be guilty! GUILT DOMAIN is to consume u now !";
+            seriousBtn.style.fontSize = `${guiltSize}px`;
+            apologiseBtn.style.fontSize = `${apologiseSize}px`;
+            guiltSize += 10;
+            apologiseSize -= 2;
+        }
+    }
+
+    function createHearts() {
+        const heartContainer = document.querySelector(".hearts");
+        for (let i = 0; i < 20; i++) {
+            let heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDuration = `${2 + Math.random() * 3}s`;
+            heart.style.top = `${100 + Math.random() * 50}px`;
+            heartContainer.appendChild(heart);
+        }
+    }
+</script>
+
+</body>
+</html>
